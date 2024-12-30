@@ -1,11 +1,33 @@
 "use client"
 import { useState } from "react";
-import Image from "next/image";
-
+interface Comment {
+  highlightedComments: string[];
+  highlightedCommentsActivityCounts: { text: string }[];
+  text: string;
+  commentUrl: string;
+  totalReactionCount: number;
+  likeCount: number;
+  commentsCount: number;
+  repostsCount: number;
+  postUrl: string;
+  postedAt: string;
+  postedDate: string;
+  commentedDate: string;
+  urn: string;
+  author: {
+    firstName: string;
+    lastName: string;
+    headline: string;
+    username: string;
+    url: string;
+  };
+  company: object;
+  article: object;
+}
 export default function Home() {
   const [username, setUsername] = useState("");
   const [apiKey, setApiKey] = useState("");
-  const [comments, setComments] = useState<any[]>([
+  const [comments, setComments] = useState<Comment[]>([
     {
     "highlightedComments": [
         "Hi Richa, \n\nAt Trawlii, we specialize in software development and have extensive experience working with various technologies to create backend systems, mobile apps, and websites. Our team is skilled in delivering tailored solutions to meet specific project requirements.\n\nLet’s connect and discuss how we can support your project!\n\nVisit us at https://trawlii.com/portfolio or email me at abhishek.jain@trawlii.com.\n\nLooking forward to hearing from you!"
