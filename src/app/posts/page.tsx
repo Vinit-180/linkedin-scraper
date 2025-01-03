@@ -27,17 +27,19 @@ const Posts = () => {
         })
     }, []);
     return <>
-        <div>
-            <h1 className="text-center text-2xl my-2 font-semibold">
+    <div className="bg-slate-300 h-screen py-4 w-screen">
+            <h1 className="text-center text-2xl font-semibold text-wrap whitespace-normal">
             Welcome to the Home of Amazing Insights from 
-            <a href={`${profileURN}`} className="mx-1" target="_blank">{profileURN}</a>
+            <a href={`${profileURN}`} className="mx-1  block sm:inline  hover:underline hover:text-blue-600" target="_blank">{profileURN}</a>
             </h1>
-
-            <div id="results" className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-
+            <div className="flex justify-end px-4 py-1">
+                <button className="px-4 py-2 bg-white text-black rounded-lg">
+                    Refresh Database
+                </button>
+            </div>
+            <div id="results" className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 px-4 py-6">
             {commentedPosts?.map((e,index)=>{
-                return <>
-                 <div key={index} className="card border p-4 rounded ">
+                return <div key={index} className="card border border-gray-400 p-4 rounded-lg bg-gradient-to-r from-slate-300/80 to-slate-300 hover:bg-slate-400">
                     <div className="mt-2">
                         <p className="font-bold">Post Preview:</p>
                         <p className="max-h-52 text-clip overflow-y-scroll scrollbar-none  my-2">{e?.content}</p>
@@ -50,7 +52,6 @@ const Posts = () => {
                         View Post
                     </a>
                 </div>
-                </>
             })}
             </div>
         </div>

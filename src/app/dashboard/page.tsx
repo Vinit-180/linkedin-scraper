@@ -1,6 +1,7 @@
 
 "use client";
 
+import Modal from "@/components/Modal/page";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,17 +13,13 @@ interface User {
 }
 
 const Dashboard = () => {
-    // const router = useRouter();
 
-    
     const [users, setUsers] = useState<User[]>([]);
+    const [isOpen, setIsOpen] = useState(false);
 
-    // const handleNavigate = (id: string) => {
-    //     if (router.isReady) {
-    //         router.push("/posts")
-    //         // router.push({ pathname: "/posts", query: { id } });
-    //     }
-    // }
+    const toggleModal = () => {
+        setIsOpen(!isOpen);
+    };
     useEffect(() => {
         fetchUsers();
     }, []);
@@ -37,23 +34,32 @@ const Dashboard = () => {
     }
 
     return (<>
-        <h1>Dashboard</h1>
+        <div className="my-4 mx-4 flex justify-between items-center">
+            <div className="text-lg font-semibold">
+                Welcome to the Dashboard
+            </div>
+            <button className="px-4 py-2 rounded-lg bg-blue-500/70 hover:bg-blue-500/40"
+                onClick={toggleModal}
+            >
+                Add New Profile
+            </button>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-8 gap-4 my-4 mx-4 bg-white px-4 py-4 rounded-lg h-screen">
             {users.length > 0 ?
                 <>
                     {users?.map((e) => {
-                        return <div className="w-100">
+                        return <div className="w-100" key={e.profileURN}>
                             <div className="flex flex-col gap-2 my-2">
-                                <img src={e.profilePicUrl} alt="" className="w-40 h-40 rounded-lg" />
+                                <img src={e.profilePicUrl} alt="" className="w-100 h-100 sm:w-40 sm:h-40 rounded-lg" />
                                 <a target="_blank" className="text-sm hover:text-blue-500 text-black" href={e.profileURN}> Click to View Profile</a>
                             </div>
 
                             <button className="bg-gray-700 hover:bg-gray-500 text-white hover:text-black  text-md px-2 py-1 rounded-lg w-100"
-                                // onClick={() => handleNavigate(e.profileURN)}
+                            // onClick={() => handleNavigate(e.profileURN)}
                             >
-                                 <Link href={`/posts?username=${e.profileURN}`}>
-                                 Click to see data
-          </Link>
+                                <Link href={`/posts?username=${e.profileURN}`}>
+                                    Click to see data
+                                </Link>
                             </button>
                         </div>
                     })}
@@ -63,6 +69,8 @@ const Dashboard = () => {
                     <h1>There are no users present at this time.</h1>
                 </>}
         </div>
+        
+        {isOpen && <Modal toggleModal={toggleModal}/>}
     </>)
 }
 
