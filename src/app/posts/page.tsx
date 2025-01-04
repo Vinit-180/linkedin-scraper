@@ -19,7 +19,7 @@ const Posts = () => {
         console.log(params.get('username'))
         setprofileURN(username);
         const token=localStorage.getItem("token");
-        axios.get(`${process.env.NEXT_PUBLIC_API_URL}posts?profileURN=${username}`{headers:{
+        axios.get(`${process.env.NEXT_PUBLIC_API_URL}posts?profileURN=${username}`,{headers:{
             Authorization:token
         }}).then((data) => {
             console.log(data);
