@@ -22,7 +22,7 @@ const Navbar=()=>{
       useEffect(()=>{
         const data=localStorage.getItem("token");
         console.log(data);
-        if(data!==undefined && data){
+        if(data!==undefined && data!==null){
           const decoded=jwtDecode.decode(data) as UserToken;
           setDecodedToken(decoded);
         }
