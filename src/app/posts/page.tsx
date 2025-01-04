@@ -18,8 +18,10 @@ const Posts = () => {
         const username = params.get('username')
         console.log(params.get('username'))
         setprofileURN(username);
-
-        axios.get(`${process.env.NEXT_PUBLIC_API_URL}posts?profileURN=${username}`).then((data) => {
+        const token=localStorage.getItem("token");
+        axios.get(`${process.env.NEXT_PUBLIC_API_URL}posts?profileURN=${username}`{headers:{
+            Authorization:token
+        }}).then((data) => {
             console.log(data);
             setCommentedPosts(data.data.data);
         }).catch((err) => {

@@ -12,7 +12,10 @@ const Modal = ({ toggleModal,setError }:{toggleModal:()=>void,setError:(m:string
         const data = Object.fromEntries(formData.entries());
 
         console.log("Form Data:", data);
-        axios.post(`${process.env.NEXT_PUBLIC_API_URL}username`,data).then((response) => {
+        const token=localStorage.getItem("token");
+        axios.post(`${process.env.NEXT_PUBLIC_API_URL}username`,{headers:{
+            Authorization:token
+        }},data).then((response) => {
             console.log(response);
             toggleModal();
         }).catch((err) => {
