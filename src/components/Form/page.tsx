@@ -2,7 +2,6 @@
 
 import { Input } from "@/components/ui/input";
 import  Label  from "@/components/ui/label";
-import { cn } from "@/lib/utils";
 import { ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -125,7 +124,7 @@ export function AuthForm({ type }: AuthFormProps) {
       <div className="text-center text-sm text-muted-foreground">
         {type === "login" ? (
           <>
-            Don't have an account?{" "}
+            Do not have an account?
             <Link href="/signup" className="text-violet-600 hover:underline">
               Sign up
             </Link>

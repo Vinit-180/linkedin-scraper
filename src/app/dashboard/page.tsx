@@ -4,9 +4,7 @@
 import Modal from "@/components/Modal/page";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import axios from "axios";
-import { span } from "framer-motion/client";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 interface User {

@@ -1,62 +1,60 @@
-"use client"
-import { useState } from "react";
 import { ArrowRight, Bot, Code2, Database, Globe2, Lock, Settings2 } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
-  interface Comment {
-    highlightedComments: string[];
-    highlightedCommentsActivityCounts: { text: string }[];
-    text: string;
-    commentUrl: string;
-    totalReactionCount: number;
-    likeCount: number;
-    commentsCount: number;
-    repostsCount: number;
-    postUrl: string;
-    postedAt: string;
-    postedDate: string;
-    commentedDate: string;
-    urn: string;
-    author: {
-      firstName: string;
-      lastName: string;
-      headline: string;
-      username: string;
-      url: string;
-    };
-    company: object;
-    article: object;
-  }
-  const [username, setUsername] = useState("");
-  const [apiKey, setApiKey] = useState("");
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [error, setError] = useState("");
+  // interface Comment {
+  //   highlightedComments: string[];
+  //   highlightedCommentsActivityCounts: { text: string }[];
+  //   text: string;
+  //   commentUrl: string;
+  //   totalReactionCount: number;
+  //   likeCount: number;
+  //   commentsCount: number;
+  //   repostsCount: number;
+  //   postUrl: string;
+  //   postedAt: string;
+  //   postedDate: string;
+  //   commentedDate: string;
+  //   urn: string;
+  //   author: {
+  //     firstName: string;
+  //     lastName: string;
+  //     headline: string;
+  //     username: string;
+  //     url: string;
+  //   };
+  //   company: object;
+  //   article: object;
+  // }
+  // const [username, setUsername] = useState("");
+  // const [apiKey, setApiKey] = useState("");
+  // const [comments, setComments] = useState<Comment[]>([]);
+  // const [error, setError] = useState("");
 
-  const fetchComments = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setError(""); // Reset error state
+  // const fetchComments = async (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   setError(""); // Reset error state
 
-    try {
-      const response = await fetch(`https://linkedin-data-api.p.rapidapi.com/get-profile-comments?username=${username}`, {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com",
-          "x-rapidapi-key": apiKey,
-        },
-      });
+  //   try {
+  //     const response = await fetch(`https://linkedin-data-api.p.rapidapi.com/get-profile-comments?username=${username}`, {
+  //       method: "GET",
+  //       headers: {
+  //         "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com",
+  //         "x-rapidapi-key": apiKey,
+  //       },
+  //     });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setComments(data); 
-      console.log(data);
-    } catch (error) {
-      setError("Error fetching data. Please check your API key and username.");
-      console.error("Error fetching data:", error);
-    }
-  };
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+  //     const data = await response.json();
+  //     setComments(data); 
+  //     console.log(data);
+  //   } catch (error) {
+  //     setError("Error fetching data. Please check your API key and username.");
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
     return (
     <div className="min-h-screen bg-background">

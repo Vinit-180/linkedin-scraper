@@ -2,21 +2,18 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import jwtDecode from "jsonwebtoken";
 import { useEffect, useState } from "react";
+interface UserToken{
+  email?:string;
+  name?:string; 
+}
 export default function ProfilePage() {
-  // TODO: Replace with actual user data
-  const user = {
-    name: "John Doe",
-    email: "john@example.com",
-    joinDate: "January 2024",
-    role: "User",
-  };
-  const [decodedToken, setDecodedToken] = useState<any>(null);
+  const [decodedToken, setDecodedToken] = useState<UserToken| null>();
 
   useEffect(()=>{
     const data=localStorage.getItem("token");
     console.log(data);
-    if(data!==undefined && data){
-      const decoded=jwtDecode.decode(data);
+    if(data!==undefined && data!==null){
+      const decoded=jwtDecode.decode(data) as UserToken;
       setDecodedToken(decoded);
     }
   },[]);

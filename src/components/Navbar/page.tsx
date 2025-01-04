@@ -1,5 +1,5 @@
 "use client";
-import { Bot, LayoutDashboardIcon, LogOut, Settings, User } from "lucide-react";
+import { Bot, LayoutDashboardIcon, LogOut, User } from "lucide-react";
 import Link from "next/link";
 import {
     DropdownMenu,
@@ -8,19 +8,22 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
-import { Button } from "../ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { useEffect, useState } from "react";
 import jwtDecode from "jsonwebtoken";
 
+interface UserToken{
+  email:string;
+  name:string; 
+}
 const Navbar=()=>{
-      const [decodedToken, setDecodedToken] = useState<any>(null);
+      const [decodedToken, setDecodedToken] = useState<UserToken>();
 
       useEffect(()=>{
         const data=localStorage.getItem("token");
         console.log(data);
         if(data!==undefined && data){
-          const decoded=jwtDecode.decode(data);
+          const decoded=jwtDecode.decode(data) as UserToken;
           setDecodedToken(decoded);
         }
       },[]);
