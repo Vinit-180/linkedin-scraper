@@ -76,17 +76,10 @@ export default function Home() {
             >
               Get Started Free <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
-            {/* <Link
-              href="/demo"
-              className="inline-flex items-center px-6 py-3 rounded-lg border border-input bg-background hover:bg-accent transition-colors"
-            >
-              Watch Demo
-            </Link> */}
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">
@@ -107,22 +100,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
+
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-center mx-auto text-6xl capitalize font-semibold">
             Be ready to get your leads faster
           </h1>
-          {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-muted-foreground">{stat.label}</div>
-              </div>
-            ))}
-          </div> */}
         </div>
       </section>
 
@@ -180,24 +163,7 @@ const features = [
   },
 ];
 
-const stats = [
-  {
-    value: "10M+",
-    label: "Automations Run",
-  },
-  {
-    value: "50K+",
-    label: "Active Users",
-  },
-  {
-    value: "99.9%",
-    label: "Uptime",
-  },
-  {
-    value: "24/7",
-    label: "Support",
-  },
-];
+
 
   // return (
   //   <div className="py-10 px-20">

@@ -1,5 +1,7 @@
+"use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
+import jwtDecode from "jsonwebtoken";
+import { useEffect, useState } from "react";
 export default function ProfilePage() {
   // TODO: Replace with actual user data
   const user = {
@@ -8,6 +10,16 @@ export default function ProfilePage() {
     joinDate: "January 2024",
     role: "User",
   };
+  const [decodedToken, setDecodedToken] = useState<any>(null);
+
+  useEffect(()=>{
+    const data=localStorage.getItem("token");
+    console.log(data);
+    if(data!==undefined && data){
+      const decoded=jwtDecode.decode(data);
+      setDecodedToken(decoded);
+    }
+  },[]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -23,20 +35,20 @@ export default function ProfilePage() {
               <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
                   <dt className="text-sm font-medium text-muted-foreground">Full Name</dt>
-                  <dd className="mt-1 text-sm">{user.name}</dd>
+                  <dd className="mt-1 text-sm">{decodedToken?.name}</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-medium text-muted-foreground">Email</dt>
-                  <dd className="mt-1 text-sm">{user.email}</dd>
+                  <dd className="mt-1 text-sm">{decodedToken?.email}</dd>
                 </div>
-                <div>
+                {/* <div>
                   <dt className="text-sm font-medium text-muted-foreground">Member Since</dt>
                   <dd className="mt-1 text-sm">{user.joinDate}</dd>
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                   <dt className="text-sm font-medium text-muted-foreground">Role</dt>
                   <dd className="mt-1 text-sm">{user.role}</dd>
-                </div>
+                </div> */}
               </dl>
             </CardContent>
           </Card>

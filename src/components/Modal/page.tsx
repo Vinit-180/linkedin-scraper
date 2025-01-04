@@ -4,7 +4,7 @@ import { FormEvent } from "react";
 import axios from "axios";
 
 
-const Modal = ({ toggleModal }:{toggleModal:()=>void}) => {
+const Modal = ({ toggleModal,setError }:{toggleModal:()=>void,setError:(m:any)=>void}) => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     
@@ -17,6 +17,8 @@ const Modal = ({ toggleModal }:{toggleModal:()=>void}) => {
             toggleModal();
         }).catch((err) => {
             console.log(err);
+            setError(err.response?.data?.message);
+            toggleModal();
         })
       };
     return (<> {

@@ -1,6 +1,5 @@
 "use client";
 
-// import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import  Label  from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -8,6 +7,7 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "../ui/button";
+import axios from "axios";
 
 interface AuthFormProps {
   type: "login" | "signup";
@@ -15,16 +15,50 @@ interface AuthFormProps {
 
 export function AuthForm({ type }: AuthFormProps) {
   const [isLoading, setIsLoading] = useState(false);
-
-  async function onSubmit(e: React.FormEvent) {
+  const [error,setError]=useState('');
+  const onSubmit=(e: React.FormEvent<HTMLFormElement>)=> {
     e.preventDefault();
     setIsLoading(true);
     // Add your authentication logic here
+    const formData= new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    console.log(data);
+    if(type=="signup")
+    {
+      axios.post(`${process.env.NEXT_PUBLIC_API_URL}user/signup`,data).then((data)=>{
+        if(data.data?.data?.jwtToken!==undefined)
+          {
+            localStorage.setItem("token",data.data?.data?.jwtToken);      
+            if(typeof window!==undefined){
+         window.location.href="/dashboard";
+            }
+          }
+      }).catch((err)=>{
+        console.log(err);
+        setError(err.response?.data?.message);
+      })
+    }
+    else
+    {
+      axios.post(`${process.env.NEXT_PUBLIC_API_URL}user/signin`,data).then((data)=>{
+        console.log(data,data?.data?.data?.jwtToken);
+        if(data.data?.data?.jwtToken!==undefined)
+        {
+          localStorage.setItem("token",data.data?.data?.jwtToken);      
+          if(typeof window!==undefined)
+          {window.location.href="/dashboard";}
+        }
+      }).catch((err)=>{
+        console.log(err);
+        setError(err.response?.data?.message);
+      })
+    }
     setTimeout(() => setIsLoading(false), 1000);
   }
 
   return (
     <div className="grid gap-6">
+      {error && <h1 className="text-4xl text-red-500"> {error}</h1>}
       <form onSubmit={onSubmit}>
         <div className="grid gap-4">
           {type === "signup" && (
@@ -32,6 +66,7 @@ export function AuthForm({ type }: AuthFormProps) {
               <Label name="name" value="Full Name" />
               <Input
                 id="name"
+                name="name"
                 placeholder="John Doe"
                 type="text"
                 autoCapitalize="none"
@@ -45,6 +80,7 @@ export function AuthForm({ type }: AuthFormProps) {
             <Label name="email" value="Email" />
             <Input
               id="email"
+              name='email'
               placeholder="name@example.com"
               type="email"
               autoCapitalize="none"
@@ -58,6 +94,7 @@ export function AuthForm({ type }: AuthFormProps) {
             <Label name="password" value="Password"/>
             <Input
               id="password"
+              name='password'
               placeholder="••••••••"
               type="password"
               autoComplete={type === "login" ? "current-password" : "new-password"}
