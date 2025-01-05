@@ -10,16 +10,19 @@ const Modal = ({ toggleModal,setError }:{toggleModal:()=>void,setError:(m:string
     
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
-
+        const profile=data.profileURN as string;
+        if (profile && profile.endsWith('/')) {
+            data.profileURN = profile.slice(0, -1);
+        }
         console.log("Form Data:", data);
         const token=localStorage.getItem("token");
-        axios.post(`${process.env.NEXT_PUBLIC_API_URL}username`,{headers:{
+        axios.post(`${process.env.NEXT_PUBLIC_API_URL}username`,data,{headers:{
             Authorization:token
-        }},data).then((response) => {
+        }}).then((response) => {
             console.log(response);
             toggleModal();
         }).catch((err) => {
-            console.log(err);
+            // console.log(err);
             setError(err.response?.data?.message);
             toggleModal();
         })
